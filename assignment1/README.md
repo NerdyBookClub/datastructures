@@ -53,7 +53,7 @@ Now that we understand the distinction between data structures and abstract data
 
 Most programming languages provide methods for separating _interface_ from _implementation_. In Java, this is accomplished using `interface`s. An interface is like a class that provides no implementation for its methods, it only defines the signatures of methods that may be performed on that class. Such an interface may then be extended by concrete `class`es that must implement those methods.
 
-Why would we want to program using interfaces? Interfaces may be used to create a contract for a particular type of object. By extending a particular interface, we can guarantee that specific behaviours or operations may be performed. For example, suppose we wish to model different types of food that can be eaten:
+Why would we want to program using interfaces? Interfaces may be used to create a contract for a particular type of object. By extending a particular interface, we can guarantee that specific behaviours or operations may be performed. Here's a contrived example. Suppose we wish to model different types of food that can be eaten. We might start by writing something like this:
 
 ```java
 // Interface for something that can be eaten

@@ -16,6 +16,13 @@ public interface List<T> {
     public void prepend(T value);
 
     /**
+     * Adds a value at the specified index
+     * @param value the value to add.
+     * @param index the index at which to add the value.
+     */
+    public void insert(T value, int index);
+
+    /**
      * Determine whether or not this list is empty.
      * @return true if the list is empty, false if it contains items.
      */

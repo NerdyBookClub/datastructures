@@ -42,6 +42,73 @@ What is an array? An array is a fixed-length collection of values of the same ty
   printf("%i%n", array[2]);
   ```
 
-  But _why_ does an array have these properties? These properties of an array exist due to the way in which the array data type is stored in a computer's memory. An array consists of a contiguous block of memory locations, each one containing a value. The computer stores the address at which the array begins as a _pointer_ to the array. To access an element of an array at a certain index, the computer begins at the array pointer and then adds the size of the type of element in the array to the array pointer to find the address (or _offset_) corresponding to that index. This is why all the elements of the array must be the same type; since different data types have different sizes (for example, a `char` in C is 8 bits, while a `double` is 64 bits). If we had an array of mixed types of differing sizes, it would be impossible to compute the offset needed to access any given element in this manner.
+But _why_ does an array have these properties? These properties of an array exist due to the way in which the array data type is stored in a computer's memory. An array consists of a contiguous block of memory locations, each one containing a value. The computer stores the address at which the array begins as a _pointer_ to the array. To access an element of an array at a certain index, the computer begins at the array pointer and then adds the size of the type of element in the array to the array pointer to find the address (or _offset_) corresponding to that index. This is why all the elements of the array must be the same type; since different data types have different sizes (for example, a `char` in C is 8 bits, while a `double` is 64 bits). If we had an array of mixed types of differing sizes, it would be impossible to compute the offset needed to access any given element in this manner.
 
-  Similarly, the array is of a fixed size because it is simply a block of contiguous memory. The memory address after the last element in the array might be assigned to contain some completely different variable or data type when our program is running. If we wanted to add more elements to an array, we would have nowhere to put them, since that space in the computer's memory might be used for some different purpose.
+Similarly, the array is of a fixed size because it is simply a block of contiguous memory. The memory address after the last element in the array might be assigned to contain some completely different variable or data type when our program is running. If we wanted to add more elements to an array, we would have nowhere to put them, since that space in the computer's memory might be used for some different purpose.
+
+Writing Data Structures
+-----------------------
+
+Now that we understand the distinction between data structures and abstract data types, an inquisitive reader might wonder, how do we translate these ideas into programming concepts?
+
+Most programming languages provide methods for separating _interface_ from _implementation_. In Java, this is accomplished using `interface`s. An interface is like a class that provides no implementation for its methods, it only defines the signatures of methods that may be performed on that class. Such an interface may then be extended by concrete `class`es that must implement those methods.
+
+Why would we want to program using interfaces? Interfaces may be used to create a contract for a particular type of object. By extending a particular interface, we can guarantee that specific behaviours or operations may be performed. For example, suppose we wish to model different types of food that can be eaten:
+
+```java
+// Interface for something that can be eaten
+interface Edible {
+
+    // Returns the number of calories in this Edible object
+    public int calories();
+
+    // Eat this Edible object, returning true if there is any left
+    // or false if it's all gone.
+    public boolean eat();
+}
+
+class Sandwich extends Edible {
+
+    private int bitesRemaining;
+
+    public Sandwich() {
+        bitesRemaining = 10;
+    }
+
+    public int calories() {
+        return 350;
+    }
+
+    public boolean eat() {
+        if (bitesRemaining == 0) {
+            return false;
+        } else {
+            bitesRemaining--;
+            return true;
+        }
+    }
+
+}
+
+class Strawberry extends Edible {
+
+    public Strawberry() {
+        bitesRemaining = 10;
+    }
+
+    public int calories() {
+        return 20;
+    }
+
+    public boolean eat() {
+        // each strawberry only has one bite in it
+        return false;
+    }
+}
+```
+
+In order to complete a number of the assignments in this course using Java, you will be provided with one or more interfaces representing abstract data types, and you will be asked to provide concrete implementations of those interfaces.
+
+In C, _header files_ may be used to achieve a similar end.
+
+TODO: explain header files in C.

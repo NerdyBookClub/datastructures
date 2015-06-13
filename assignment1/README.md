@@ -51,13 +51,15 @@ Writing Data Structures
 
 Now that we understand the distinction between data structures and abstract data types, an inquisitive reader might wonder, how do we translate these ideas into programming concepts?
 
+### Representing Abstract Data Types
+
 Most programming languages provide methods for separating _interface_ from _implementation_. In Java, this is accomplished using `interface`s. An interface is like a class that provides no implementation for its methods, it only defines the signatures of methods that may be performed on that class. Such an interface may then be extended by concrete `class`es that must implement those methods.
 
 Why would we want to program using interfaces? Interfaces may be used to create a contract for a particular type of object. By extending a particular interface, we can guarantee that specific behaviours or operations may be performed. Here's a contrived example. Suppose we wish to model different types of food that can be eaten. We might start by writing something like this:
 
 ```java
 // Interface for something that can be eaten
-interface Edible {
+public interface Edible {
 
     // Returns the number of calories in this Edible object
     public int calories();
@@ -67,7 +69,7 @@ interface Edible {
     public boolean eat();
 }
 
-class Sandwich extends Edible {
+public class Sandwich extends Edible {
 
     private int bitesRemaining;
 
@@ -90,7 +92,7 @@ class Sandwich extends Edible {
 
 }
 
-class Strawberry extends Edible {
+public class Strawberry extends Edible {
 
     public Strawberry() {
         bitesRemaining = 10;
@@ -112,3 +114,51 @@ In order to complete a number of the assignments in this course using Java, you 
 In C, _header files_ may be used to achieve a similar end.
 
 TODO: explain header files in C.
+
+### Generic programming
+
+When implementing data structures, we might want our data structures to be useable for storing data of various types. For example, consider how the array data structure we've discussed above. Note that it is not limited to storing a particular type of value. Rather, we may create arrays of `int`s or `float`s or, in Java, any type of object. If we are implementing some data structure, such as a list, we would want to write a list implementation that can store any type of value, rather than a list that stores only integers. This is called _generic programming_.
+
+In Java, we can create generic container classes using _type parameters_. To create a generic container class, we can add one or more type parameter to the class's definition, like this:
+
+```java
+public class Container<T> { // T is a type parameter - it can be any type
+
+    private T contained; // 'contained' is a variable of type T
+
+    public Container(T value) { // takes a value of type T as a parameter
+        contained = value;
+    }
+
+    public T getContained() { // returns a value of type T
+        return contained;
+    }
+
+}
+```
+
+The `T` in angle brackets is a type variable. Not unlike a regular variable, we can refer to `T` throughout our class. However, rather than referencing a specific value, a type variable references a type. Notice how the `Container<T>` class contains methods and variables that refer to `T` in their declarations. The class does not care whether the value of `T` is `int` or `String` or even another `Container<T>`; it can still be created and provide access to the contained value regardless of its type.
+
+When creating and using instances of classes with type parameters, we can declare them like this:
+
+```java
+
+Container<String> c; // declares the variable 'c' as a Container holding a String
+
+c = new Container<String>("This is a string"); // this works
+
+c = new Container<Integer>(1); // this will not compile
+
+```
+
+Note that the second line, in which `c` is assigned to a new `Container<Integer>`, will not compile. We have already told the computer that the variable `c` refers to a `Container` that holds `String`s, so we cannot assign it to a `Container` that holds `Integer`s.
+
+If a generic variable is declared and instantiated on the same line, we don't have to write out the type parameter twice, like this:
+
+```java
+Container<Double> container = new Container<>(1.0);
+```
+
+The compiler understands that the empty type parameter should be filled in with the type specified in the declaration.
+
+Unfortunately, C has no such facility for generic programming. C++, the object-oriented extension of C, does have support for _templates_, which are similar to Java's generics. If completing the assignments in this course using C rather than Java, you will not be asked to implement generic data structures in the same manner.

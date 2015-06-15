@@ -1,0 +1,14 @@
+plugins {
+  id "com.github.maiflai.scalatest" version "0.7"
+}
+
+apply plugin: 'scala'
+
+dependencies {
+  testCompile 'org.scalatest:scalatest_2.11:2+'
+  testRuntime 'org.pegdown:pegdown:1.1.0'
+}
+
+task wrapper(type: Wrapper) {
+    gradleVersion = '2.4'
+}

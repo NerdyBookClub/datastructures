@@ -1,4 +1,4 @@
-public class ArrayList<T> extends List<T> {
+public class ArrayList<T> implements List<T> {
 
     public void append(T value) {
         return; // TODO: implement this

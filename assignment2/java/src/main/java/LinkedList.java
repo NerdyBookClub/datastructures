@@ -1,4 +1,4 @@
-public class LinkedList<T> extends List<T> {
+public class LinkedList<T> implements List<T> {
 
     public void append(T value) {
         return; // TODO: implement this

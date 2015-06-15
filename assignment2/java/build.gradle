@@ -4,6 +4,11 @@ plugins {
 
 apply plugin: 'scala'
 
+repositories {
+    mavenLocal()
+    mavenCentral()
+}
+
 dependencies {
   testCompile 'org.scalatest:scalatest_2.11:2+'
   testRuntime 'org.pegdown:pegdown:1.1.0'

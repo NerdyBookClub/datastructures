@@ -1,4 +1,4 @@
-use std::ops;
+pub mod arraylist;
 
 pub trait List<T> {
 
@@ -30,17 +30,6 @@ pub trait List<T> {
         ListIterator{idx: -1, list: self}
     }
 
-}
-
-
-/// Implements indexing for lists.
-impl<T> ops::Index<usize> for List<T>{
-    type Output = T;
-
-    fn index<'a>(&'a self, _index: usize) -> &'a T {
-        self.get(_index)
-            .expect("index out of bounds")
-    }
 }
 
 /// Iterator over the entries of a list.
